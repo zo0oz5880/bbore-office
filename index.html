@@ -93,7 +93,7 @@
         <p style="color:var(--ink-soft); font-size:13.5px;">
           지도 위의 핀은 <b>대회의실</b>(계획·안건), <b>지휘실</b>(실제 작업), <b>라운지</b>(휴식·루틴) 세 곳이에요.
           작업실에서 체크한 할 일과 회의실에 올린 안건이 이 방들에 그대로 반영돼요.
-          아래 탭에서 할 일을 추가하거나 메모를 남기면 이 브라우저에 저장되고, 다음에 열어도 그대로 남아 있어요.
+          아래 탭에서 할 일을 추가하거나 메모를 남기면 실시간으로 함께 저장되고, 다른 기기나 다른 피클에서 열어도 그대로 남아 있어요.
         </p>
       </div>
     </section>
@@ -144,7 +144,7 @@
         <span class="hint" id="workSummary">오늘 할 일을 정리해 보세요</span>
       </div>
       <div class="board-grid" id="board"></div>
-      <p class="empty" style="margin-top:12px;">추가한 할 일은 이 브라우저에 저장돼요. 지우고 싶으면 항목 오른쪽 ✕ 를 눌러 주세요.</p>
+      <p class="empty" style="margin-top:12px;">추가한 할 일은 실시간으로 함께 저장돼요. 지우고 싶으면 항목 오른쪽 ✕ 를 눌러 주세요.</p>
     </section>
 
     <!-- 비서현황 -->
@@ -221,7 +221,7 @@
         <div class="composer">
           <textarea id="memoInput" placeholder="예) 다음 주 무신사 후기 2건 남음 / 크릭스 다 쓰면 약국에 물어보기 / 12월 캘린더는 월 4개만"></textarea>
           <div class="composer-foot">
-            <span class="foot-note">📌 메모는 이 브라우저에 저장돼요.</span>
+            <span class="foot-note">📌 메모는 실시간으로 함께 저장돼요.</span>
             <button class="btn" id="addMemo" type="button">메모 붙이기</button>
           </div>
         </div>
@@ -229,26 +229,19 @@
       </div>
 
       <details class="guide">
-        <summary>🔌 여러 피클과 실시간으로 같이 쓰기 (Firebase 연결 안내)</summary>
+        <summary>🔌 여러 피클과 실시간으로 같이 쓰기 (연결됨 · Firebase bbore-office)</summary>
         <div class="guide-body">
-          <p>지금은 이 브라우저에만 저장돼요. 다른 피클과 <b>같은 목록을 실시간으로</b> 보려면 Firebase Realtime Database를 붙이면 돼요.
-            페이지는 이미 그 자리를 비워 두었어요 — <code>assets/app.js</code> 맨 위의 <code>FIREBASE_CONFIG</code>만 채우면 자동으로 전환됩니다.</p>
-          <ol>
-            <li>Firebase 콘솔에서 새 프로젝트를 만들고 <b>Realtime Database</b>를 켭니다.</li>
-            <li>프로젝트 설정 → 내 앱(웹)에서 <code>firebaseConfig</code> 값을 복사합니다.</li>
-            <li><code>assets/app.js</code>의 <code>FIREBASE_CONFIG</code>에 붙여 넣고 저장합니다.</li>
-            <li>규칙(Rules)에서 <code>bbori-office</code> 경로만 읽고 쓸 수 있게 열어 둡니다.</li>
-          </ol>
-          <pre class="code"><span class="cm">// assets/app.js 맨 위</span>
-const FIREBASE_CONFIG = {
-  apiKey: "…",
-  authDomain: "…firebaseapp.com",
-  databaseURL: "https://….firebaseio.com",
-  projectId: "…",
-  appId: "…",
-};
-const FIREBASE_PATH = "bbori-office"; <span class="cm">// 방 하나 = 문서 하나</span></pre>
-          <pre class="code"><span class="cm">// Realtime Database 규칙 예시 (테스트용, 나중에 잠그기)</span>
+          <p><b>연결됐어요.</b> Firebase Realtime Database <code>bbore-office</code> 프로젝트의
+            <code>https://bbore-office-default-rtdb.firebaseio.com</code> 아래 <code>bbori-office</code> 경로 하나에
+            할 일·안건·메모가 모두 들어 있습니다. 한 피클이 체크하면 다른 피클·다른 기기 화면에도 바로 반영되고,
+            새로고침하거나 브라우저를 닫았다 열어도 그대로 남아 있어요.</p>
+          <ul class="guide-list">
+            <li>프로젝트: <code>bbore-office</code> · Spark 무료 요금제</li>
+            <li>설정값: <code>assets/app.js</code> 맨 위 <code>FIREBASE_CONFIG</code> (공개 웹 앱 설정 — 비밀값 아님)</li>
+            <li>규칙: <code>bbori-office</code> 경로만 읽기/쓰기 허용, 그 밖의 경로는 막혀 있습니다.</li>
+            <li>연결이 잠시 끊기면 이 브라우저에 먼저 저장해 두고, 다시 연결되면 DB로 올립니다. 상태는 화면 맨 아래에 표시돼요.</li>
+          </ul>
+          <pre class="code"><span class="cm">// Realtime Database 규칙 (현재 적용 중)</span>
 {
   "rules": {
     "bbori-office": {
@@ -257,7 +250,7 @@ const FIREBASE_PATH = "bbori-office"; <span class="cm">// 방 하나 = 문서 �
     }
   }
 }</pre>
-          <p>연결되면 작업실·회의실·메모가 모두 같은 내용을 보게 되고, 한 피클이 체크하면 다른 피클 화면에도 바로 반영돼요.</p>
+          <p>목록 전체를 한 문서로 저장하는 방식이라, 두 기기에서 <b>동시에</b> 고치면 나중에 저장한 쪽이 남습니다. 혼자 쓰는 목록이라 보통은 문제되지 않아요.</p>
         </div>
       </details>
     </section>
@@ -265,7 +258,7 @@ const FIREBASE_PATH = "bbori-office"; <span class="cm">// 방 하나 = 문서 �
 
   <footer>
     <span>👑 뽈이 비서실 · 보람 님 전용</span>
-    <span id="saveState">이 브라우저에 저장 중</span>
+    <span id="saveState">연결 중…</span>
   </footer>
 </div>
 

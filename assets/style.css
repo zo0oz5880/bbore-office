@@ -974,6 +974,7 @@ details.guide[open] > summary::after { transform: rotate(180deg); }
 .guide-body { padding-bottom: 18px; display: grid; gap: 10px; }
 .guide-body p { font-size: 13.5px; color: var(--ink-soft); }
 .guide-body ol { margin: 0; padding-left: 20px; font-size: 13.5px; color: var(--ink-soft); display: grid; gap: 6px; }
+.guide-body ul.guide-list { margin: 0; padding-left: 20px; font-size: 13.5px; color: var(--ink-soft); display: grid; gap: 6px; }
 .guide-body code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
 
 pre.code {
