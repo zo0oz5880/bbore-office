@@ -300,14 +300,7 @@ function renderMinutes() {
 function renderNotes() {
   const list = Store.state.notes;
   $('#noteList').innerHTML = list.length
-    ? list.map(n => `
-      <article class="note" data-id="${n.id}">
-        ${esc(n.text)}
-        <span class="note-meta">${timeLabel(n.at)}</span>
-        <span class="note-actions">
-          <button type="button" data-act="del-note" data-id="${n.id}">삭제</button>
-        </span>
-      </article>`).join('')
+    ? list.map(n => `<article class="note" data-id="${n.id}">${esc(n.text)}<span class="note-meta">${timeLabel(n.at)}</span><span class="note-actions"><button type="button" data-act="del-note" data-id="${n.id}">삭제</button></span></article>`).join('')
     : '<p class="empty">첫 메모를 붙여 보세요.</p>';
 }
 
