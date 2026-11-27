@@ -813,7 +813,7 @@ input, textarea, select { font: inherit; color: inherit; }
   flex-wrap: wrap;
 }
 
-.composer-foot .note { font-size: 12px; color: var(--ink-faint); }
+.foot-note { font-size: 12px; color: var(--ink-faint); }
 
 .btn {
   padding: 10px 18px;
@@ -894,7 +894,7 @@ input, textarea, select { font: inherit; color: inherit; }
   margin-top: 14px;
 }
 
-.note {
+.notes .note {
   position: relative;
   padding: 16px 16px 38px;
   border-radius: 16px;
@@ -912,7 +912,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .notes .note:nth-child(3n+2) { transform: rotate(-.5deg); }
 .notes .note:nth-child(3n+3) { transform: rotate(.6deg); }
 
-.note .note-meta {
+.notes .note .note-meta {
   position: absolute;
   left: 16px;
   bottom: 12px;
@@ -920,7 +920,7 @@ input, textarea, select { font: inherit; color: inherit; }
   color: var(--ink-faint);
 }
 
-.note .note-actions {
+.notes .note .note-actions {
   position: absolute;
   right: 8px;
   bottom: 8px;
@@ -929,9 +929,9 @@ input, textarea, select { font: inherit; color: inherit; }
   opacity: .6;
 }
 
-.note:hover .note-actions { opacity: 1; }
+.notes .note:hover .note-actions { opacity: 1; }
 
-.note .note-actions button {
+.notes .note .note-actions button {
   border: 0;
   background: transparent;
   color: var(--ink-faint);
@@ -940,7 +940,7 @@ input, textarea, select { font: inherit; color: inherit; }
   font-size: 12px;
 }
 
-.note .note-actions button:hover { background: var(--accent-soft); color: var(--accent); }
+.notes .note .note-actions button:hover { background: var(--accent-soft); color: var(--accent); }
 
 /* ---------- 안내(파이어베이스) ---------- */
 
