@@ -40,7 +40,7 @@
         <span class="chip">🏛️ 대회의실 <b id="chipMeeting">안건 0</b></span>
         <span class="chip">🎯 지휘실 <b id="chipCommand">진행 0</b></span>
         <span class="chip">☕ 라운지 <b id="chipLounge">여유</b></span>
-        <span class="chip">👥 함께 쓰는 방 <b id="chipSeats">1 / 3</b></span>
+        <span class="chip">👥 함께 쓰는 방 <b id="chipSeats">2 / 3</b></span>
       </div>
     </section>
 
@@ -108,15 +108,16 @@
 
         <div class="mention-bar" id="mentionBar">
           <button class="mention" type="button" data-mention="@미니">@미니</button>
+          <button class="mention" type="button" data-mention="@바다">@바다</button>
           <button class="mention" type="button" data-mention="@뽈이">@뽈이</button>
           <button class="mention" type="button" data-mention="@피클들">@피클들</button>
           <button class="mention" type="button" data-mention="@전체">@전체</button>
         </div>
 
         <div class="composer">
-          <textarea id="minuteInput" placeholder="예) @미니 내일 아침 브리핑에 12월 4일 안과 검진 넣어줘. 그리고 이번 주 스레드 글 3개만 미리 써 줘."></textarea>
+          <textarea id="minuteInput" placeholder="예) @미니 내일 아침 브리핑에 12월 4일 안과 검진 넣어줘. @바다 이번 주 릴스 2편 자막까지 붙여 줘."></textarea>
           <div class="composer-foot">
-            <span class="foot-note">🗣️ @미니 를 붙여 남기면 피클 앱 채팅에서 이어서 처리돼요.</span>
+            <span class="foot-note">🗣️ @미니 · @바다 를 붙여 남기면 피클 앱 채팅에서 이어서 처리돼요.</span>
             <button class="btn" id="addMinute" type="button">안건 올리기</button>
           </div>
         </div>
@@ -132,6 +133,7 @@
         <ul style="margin:0; padding-left:18px; color:var(--ink-soft); font-size:13.5px; display:grid; gap:6px;">
           <li>안건은 <b>한 줄에 하나씩</b> 올려 주세요. 여러 개면 나눠서 올리면 놓치지 않아요.</li>
           <li>급한 일은 <b>@미니</b>를 붙여 주세요. 채팅으로 바로 넘어가요.</li>
+          <li>릴스·쇼츠 영상은 <b>@바다</b>를 붙여 주세요. 촬영 컷 고르기부터 자막·편집까지 넘어가요.</li>
           <li>다른 피클과 같이 볼 일은 <b>@피클들</b>로 남겨 주세요. 같은 주소를 보는 피클이 함께 읽어요.</li>
         </ul>
       </div>
@@ -161,6 +163,14 @@
           <div class="who">
             <strong>미니</strong>
             <span>보람 님의 메인 비서 · 일정·체험단·리뷰·발행 총괄</span>
+          </div>
+          <span class="pill">온라인</span>
+        </div>
+        <div class="assistant">
+          <span class="avatar" aria-hidden="true">🌊</span>
+          <div class="who">
+            <strong>바다</strong>
+            <span>릴스 · 쇼츠 영상 담당 · 9:16 풀블리드 편집·자막</span>
           </div>
           <span class="pill">온라인</span>
         </div>

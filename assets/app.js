@@ -239,7 +239,7 @@ function renderBanner() {
   $('#chipMeeting').textContent = `안건 ${c.minutes}`;
   $('#chipCommand').textContent = `진행 ${c.open}`;
   $('#chipLounge').textContent = c.done > 0 ? `오늘 ${c.done}개 끝냄` : '여유';
-  $('#chipSeats').textContent = '1 / 3';
+  $('#chipSeats').textContent = '2 / 3';
   const roomsOn = [
     c.minutes > 0,
     c.open > 0,
@@ -452,7 +452,13 @@ function initEvents() {
     Store.state.minutes.unshift({ id: uid(), text, author: '보람 님', at: Date.now() });
     ta.value = '';
     Store.save(); renderAll();
-    toast(text.includes('@미니') ? '@미니에게 전달할 안건으로 올렸어요' : '회의실에 안건을 올렸어요');
+    toast(
+      text.includes('@바다')
+        ? '@바다에게 전달할 안건으로 올렸어요'
+        : text.includes('@미니')
+          ? '@미니에게 전달할 안건으로 올렸어요'
+          : '회의실에 안건을 올렸어요'
+    );
   });
 
   $('#minuteList').addEventListener('click', e => {
