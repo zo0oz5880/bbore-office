@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="cream">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>👑 뽈이 비서실 · 보람 님 전용</title>
+<meta name="description" content="보람 님 전용 클레이 3D 비서실. 오피스 맵, 작업실, 비서현황, 회의실, 메모를 한 페이지에서." />
+<meta name="theme-color" content="#f7efe2" />
+<meta property="og:title" content="👑 뽈이 비서실" />
+<meta property="og:description" content="보람 님 전용 클레이 3D 비서실" />
+<meta property="og:image" content="assets/clay-office.jpg" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.92em%22 font-size=%2290%22>👑</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+<div class="app">
+
+  <!-- 상단 -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="crown" aria-hidden="true">👑</span>
+      <div>
+        <h1>뽈이 비서실</h1>
+        <p class="sub">보람 님 전용</p>
+      </div>
+    </div>
+    <div class="status"><span class="dot" aria-hidden="true"></span> 온라인</div>
+  </header>
+
+  <main>
+    <!-- 배너 -->
+    <section class="banner" aria-labelledby="bannerTitle">
+      <p class="eyebrow" id="todayLine">오늘</p>
+      <h2 id="bannerTitle">보람 님, 비서실이 준비됐어요</h2>
+      <p class="banner-sub">세 개의 방에 불이 들어왔어요. 지휘실에서 오늘 할 일을 확인하고, 회의실에 안건을 올려 두세요.</p>
+      <div class="banner-chips">
+        <span class="chip">🏛️ 대회의실 <b id="chipMeeting">안건 0</b></span>
+        <span class="chip">🎯 지휘실 <b id="chipCommand">진행 0</b></span>
+        <span class="chip">☕ 라운지 <b id="chipLounge">여유</b></span>
+        <span class="chip">👥 함께 쓰는 방 <b id="chipSeats">1 / 3</b></span>
+      </div>
+    </section>
+
+    <!-- 탭 -->
+    <nav class="tabs" role="tablist" aria-label="비서실 메뉴">
+      <button class="tab" role="tab" id="tab-map" aria-controls="panel-map" aria-selected="true">🗺️ 오피스 맵</button>
+      <button class="tab" role="tab" id="tab-meeting" aria-controls="panel-meeting" aria-selected="false">💬 회의실</button>
+      <button class="tab" role="tab" id="tab-work" aria-controls="panel-work" aria-selected="false">📋 작업실</button>
+      <button class="tab" role="tab" id="tab-team" aria-controls="panel-team" aria-selected="false">📊 비서현황</button>
+      <button class="tab" role="tab" id="tab-memo" aria-controls="panel-memo" aria-selected="false">📝 메모</button>
+    </nav>
+
+    <!-- 오피스 맵 -->
+    <section class="panel active" id="panel-map" role="tabpanel" aria-labelledby="tab-map">
+      <div class="map-toolbar">
+        <span class="badge live">🟢 활동 중인 방 <b id="activeRooms">3</b>곳</span>
+        <button class="switch" id="motionToggle" aria-pressed="true" type="button">
+          <span class="track" aria-hidden="true"></span> 움직임 효과
+        </button>
+        <button class="switch" id="themeToggle" aria-pressed="false" type="button">
+          <span class="track" aria-hidden="true"></span> 밤 테마
+        </button>
+      </div>
+
+      <div class="map-layout">
+        <div class="map-wrap motion" id="mapWrap">
+          <img src="assets/clay-office.jpg" width="1402" height="1122"
+               alt="크림·우드 톤 클레이 미니어처 사무실. 왼쪽 대회의실, 가운데 지휘실 책상들, 오른쪽 라운지 소파." />
+          <button class="pin" type="button" aria-pressed="true" data-room="meeting" style="left:22%; top:58%;">
+            <span class="pin-dot" aria-hidden="true"></span>🏛️ 대회의실
+          </button>
+          <button class="pin" type="button" aria-pressed="false" data-room="command" style="left:54%; top:45%;">
+            <span class="pin-dot" aria-hidden="true"></span>🎯 지휘실
+          </button>
+          <button class="pin" type="button" aria-pressed="false" data-room="lounge" style="left:81%; top:66%;">
+            <span class="pin-dot" aria-hidden="true"></span>☕ 라운지
+          </button>
+        </div>
+
+        <aside class="room-panel" id="roomPanel" aria-live="polite">
+          <!-- JS가 채웁니다 -->
+        </aside>
+      </div>
+
+      <div class="section-title">
+        <h3>방 고르는 법</h3>
+        <span>핀을 누르면 그 방의 안내가 열려요</span>
+      </div>
+      <div class="card">
+        <p style="color:var(--ink-soft); font-size:13.5px;">
+          지도 위의 핀은 <b>대회의실</b>(계획·안건), <b>지휘실</b>(실제 작업), <b>라운지</b>(휴식·루틴) 세 곳이에요.
+          작업실에서 체크한 할 일과 회의실에 올린 안건이 이 방들에 그대로 반영돼요.
+          아래 탭에서 할 일을 추가하거나 메모를 남기면 이 브라우저에 저장되고, 다음에 열어도 그대로 남아 있어요.
+        </p>
+      </div>
+    </section>
+
+    <!-- 회의실 -->
+    <section class="panel" id="panel-meeting" role="tabpanel" aria-labelledby="tab-meeting">
+      <div class="card">
+        <div class="card-head">
+          <h3>💬 회의실</h3>
+          <span class="hint">안건과 지시를 남겨 두면 비서가 확인해요</span>
+        </div>
+
+        <div class="mention-bar" id="mentionBar">
+          <button class="mention" type="button" data-mention="@미니">@미니</button>
+          <button class="mention" type="button" data-mention="@뽈이">@뽈이</button>
+          <button class="mention" type="button" data-mention="@피클들">@피클들</button>
+          <button class="mention" type="button" data-mention="@전체">@전체</button>
+        </div>
+
+        <div class="composer">
+          <textarea id="minuteInput" placeholder="예) @미니 내일 아침 브리핑에 12월 4일 안과 검진 넣어줘. 그리고 이번 주 스레드 글 3개만 미리 써 줘."></textarea>
+          <div class="composer-foot">
+            <span class="note">🗣️ @미니 를 붙여 남기면 피클 앱 채팅에서 이어서 처리돼요.</span>
+            <button class="btn" id="addMinute" type="button">안건 올리기</button>
+          </div>
+        </div>
+
+        <div class="minutes" id="minuteList"></div>
+      </div>
+
+      <div class="section-title">
+        <h3>회의실 사용 규칙</h3>
+        <span>세 줄이면 충분해요</span>
+      </div>
+      <div class="card">
+        <ul style="margin:0; padding-left:18px; color:var(--ink-soft); font-size:13.5px; display:grid; gap:6px;">
+          <li>안건은 <b>한 줄에 하나씩</b> 올려 주세요. 여러 개면 나눠서 올리면 놓치지 않아요.</li>
+          <li>급한 일은 <b>@미니</b>를 붙여 주세요. 채팅으로 바로 넘어가요.</li>
+          <li>다른 피클과 같이 볼 일은 <b>@피클들</b>로 남겨 주세요. 같은 주소를 보는 피클이 함께 읽어요.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 작업실 -->
+    <section class="panel" id="panel-work" role="tabpanel" aria-labelledby="tab-work">
+      <div class="card-head" style="margin-bottom:12px;">
+        <h3>📋 작업실</h3>
+        <span class="hint" id="workSummary">오늘 할 일을 정리해 보세요</span>
+      </div>
+      <div class="board-grid" id="board"></div>
+      <p class="empty" style="margin-top:12px;">추가한 할 일은 이 브라우저에 저장돼요. 지우고 싶으면 항목 오른쪽 ✕ 를 눌러 주세요.</p>
+    </section>
+
+    <!-- 비서현황 -->
+    <section class="panel" id="panel-team" role="tabpanel" aria-labelledby="tab-team">
+      <div class="stat-grid" id="statGrid"></div>
+
+      <div class="section-title">
+        <h3>지금 함께 있는 비서</h3>
+        <span>같은 주소를 보는 피클은 여기에 늘어나요</span>
+      </div>
+      <div class="card">
+        <div class="assistant">
+          <span class="avatar" aria-hidden="true">🐰</span>
+          <div class="who">
+            <strong>미니</strong>
+            <span>보람 님의 메인 비서 · 일정·체험단·리뷰·발행 총괄</span>
+          </div>
+          <span class="pill">온라인</span>
+        </div>
+        <div class="assistant">
+          <span class="avatar" aria-hidden="true">🐶</span>
+          <div class="who">
+            <strong>빈자리 1</strong>
+            <span>다른 피클이 이 주소를 열면 여기에 이름이 올라와요</span>
+          </div>
+          <span class="pill idle">초대 대기</span>
+        </div>
+        <div class="assistant">
+          <span class="avatar" aria-hidden="true">🐱</span>
+          <div class="who">
+            <strong>빈자리 2</strong>
+            <span>라운지 담당 자리 · 회의실에서 @피클들 로 부르면 와요</span>
+          </div>
+          <span class="pill idle">초대 대기</span>
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top:14px;">
+        <div class="card">
+          <div class="card-head">
+            <h3>⏰ 매일 도는 루틴</h3>
+            <span class="hint">알림 시각은 바뀔 수 있어요</span>
+          </div>
+          <div class="routine"><time>05:30</time><div class="what">아침 브리핑 <small>날씨 · 일정 · 오늘의 운세</small></div></div>
+          <div class="routine"><time>07:00</time><div class="what">안약 (아침) <small>후루손 흔들어서 → 5분 뒤 크릭스</small></div></div>
+          <div class="routine"><time>11:30</time><div class="what">쇼핑 체험단 정기 신청 <small>카카오·무신사는 직접, 나머지는 대리</small></div></div>
+          <div class="routine"><time>12:00</time><div class="what">안약 (점심) <small>후루손 → 크릭스</small></div></div>
+          <div class="routine"><time>18:00</time><div class="what">안약 (저녁) <small>후루손 → 크릭스</small></div></div>
+          <div class="routine"><time>19:30</time><div class="what">스레드 1일 1포 <small>@homebody_memo 꿀템 추천</small></div></div>
+          <div class="routine"><time>20:00</time><div class="what">SJPT 즉답 10문항 <small>です·ます체로 답하기</small></div></div>
+          <div class="routine"><time>22:30</time><div class="what">안약 (취침 전) <small>오늘 마지막 점안</small></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>📌 챙겨 둘 일</h3>
+            <span class="hint">가까운 순서</span>
+          </div>
+          <div class="routine"><time>12/04</time><div class="what">안과 정기 검진 14:00 <small>1달 차 검진 · 전날 알림 확인</small></div></div>
+          <div class="routine"><time>12/03</time><div class="what">속눈썹펌 체험단 (두정동) <small>오전 10시 · 라식 4주 지난 뒤</small></div></div>
+          <div class="routine"><time>상시</time><div class="what">쿠팡 미작성 리뷰 정리 <small>사진 있는 건부터 순서대로</small></div></div>
+          <div class="routine"><time>상시</time><div class="what">핫딜헌터 · 공공기관 응모 <small>마감 임박한 것부터</small></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 메모 -->
+    <section class="panel" id="panel-memo" role="tabpanel" aria-labelledby="tab-memo">
+      <div class="card">
+        <div class="card-head">
+          <h3>📝 메모</h3>
+          <span class="hint">떠오를 때 바로 적어 두세요</span>
+        </div>
+        <div class="composer">
+          <textarea id="memoInput" placeholder="예) 다음 주 무신사 후기 2건 남음 / 크릭스 다 쓰면 약국에 물어보기 / 12월 캘린더는 월 4개만"></textarea>
+          <div class="composer-foot">
+            <span class="note">📌 메모는 이 브라우저에 저장돼요.</span>
+            <button class="btn" id="addMemo" type="button">메모 붙이기</button>
+          </div>
+        </div>
+        <div class="notes" id="noteList"></div>
+      </div>
+
+      <details class="guide">
+        <summary>🔌 여러 피클과 실시간으로 같이 쓰기 (Firebase 연결 안내)</summary>
+        <div class="guide-body">
+          <p>지금은 이 브라우저에만 저장돼요. 다른 피클과 <b>같은 목록을 실시간으로</b> 보려면 Firebase Realtime Database를 붙이면 돼요.
+            페이지는 이미 그 자리를 비워 두었어요 — <code>assets/app.js</code> 맨 위의 <code>FIREBASE_CONFIG</code>만 채우면 자동으로 전환됩니다.</p>
+          <ol>
+            <li>Firebase 콘솔에서 새 프로젝트를 만들고 <b>Realtime Database</b>를 켭니다.</li>
+            <li>프로젝트 설정 → 내 앱(웹)에서 <code>firebaseConfig</code> 값을 복사합니다.</li>
+            <li><code>assets/app.js</code>의 <code>FIREBASE_CONFIG</code>에 붙여 넣고 저장합니다.</li>
+            <li>규칙(Rules)에서 <code>office</code> 경로만 읽고 쓸 수 있게 열어 둡니다.</li>
+          </ol>
+          <pre class="code"><span class="cm">// assets/app.js 맨 위</span>
+const FIREBASE_CONFIG = {
+  apiKey: "…",
+  authDomain: "…firebaseapp.com",
+  databaseURL: "https://….firebaseio.com",
+  projectId: "…",
+  appId: "…",
+};
+const FIREBASE_PATH = "bbori-office"; <span class="cm">// 방 하나 = 문서 하나</span></pre>
+          <pre class="code"><span class="cm">// Realtime Database 규칙 예시 (테스트용, 나중에 잠그기)</span>
+{
+  "rules": {
+    "bbori-office": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}</pre>
+          <p>연결되면 작업실·회의실·메모가 모두 같은 내용을 보게 되고, 한 피클이 체크하면 다른 피클 화면에도 바로 반영돼요.</p>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <span>👑 뽈이 비서실 · 보람 님 전용</span>
+    <span id="saveState">이 브라우저에 저장 중</span>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
