@@ -192,6 +192,10 @@ input, textarea, select { font: inherit; color: inherit; }
   pointer-events: none;
 }
 
+[data-theme="night"] .banner::after {
+  background: radial-gradient(circle at 35% 30%, rgba(255, 216, 170, .1), transparent 68%);
+}
+
 .banner .eyebrow {
   font-size: 12.5px;
   letter-spacing: .04em;
@@ -371,6 +375,7 @@ input, textarea, select { font: inherit; color: inherit; }
 
 .switch .track {
   position: relative;
+  flex: 0 0 auto;
   width: 34px;
   height: 20px;
   border-radius: 999px;
