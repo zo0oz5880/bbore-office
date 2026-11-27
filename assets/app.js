@@ -87,9 +87,9 @@ const Store = {
       saved = null;
     }
     this.state = Object.assign({}, JSON.parse(JSON.stringify(SEED)), saved || {});
-    this.state.tasks = Array.isArray(this.state.tasks) ? this.state.tasks : [];
-    this.state.minutes = Array.isArray(this.state.minutes) ? this.state.minutes : [];
-    this.state.notes = Array.isArray(this.state.notes) ? this.state.notes : [];
+    this.state.tasks = cleanList(this.state.tasks);
+    this.state.minutes = cleanList(this.state.minutes);
+    this.state.notes = cleanList(this.state.notes);
   },
 
   save() {
@@ -138,9 +138,9 @@ const Store = {
         /* 이 기기에서 아직 못 올린 변경이 있으면 원격 값으로 덮지 않습니다. */
         if (this.saveTimer) return;
         this.state = Object.assign({}, JSON.parse(JSON.stringify(SEED)), value);
-        this.state.tasks = Array.isArray(this.state.tasks) ? this.state.tasks : [];
-        this.state.minutes = Array.isArray(this.state.minutes) ? this.state.minutes : [];
-        this.state.notes = Array.isArray(this.state.notes) ? this.state.notes : [];
+        this.state.tasks = cleanList(this.state.tasks);
+        this.state.minutes = cleanList(this.state.minutes);
+        this.state.notes = cleanList(this.state.notes);
         renderAll();
       });
 
@@ -170,6 +170,10 @@ function loadScript(src) {
 }
 
 /* ---------- 작은 도구들 ---------- */
+
+function cleanList(list) {
+  return Array.isArray(list) ? list.filter(item => item && typeof item === 'object') : [];
+}
 
 const $ = sel => document.querySelector(sel);
 const uid = () => 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
