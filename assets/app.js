@@ -4,7 +4,15 @@
    - 아래 FIREBASE_CONFIG 를 채우면 여러 피클이 실시간으로 같이 씁니다.
    ============================================================ */
 
-const FIREBASE_CONFIG = null; // 예: { apiKey:'…', databaseURL:'https://….firebaseio.com', projectId:'…' }
+const FIREBASE_CONFIG = {
+  apiKey: 'AIzaSyBtXUbHg9KQ0jdVPXYF7TBFgwkhBacgtMs',
+  authDomain: 'bbore-office.firebaseapp.com',
+  databaseURL: 'https://bbore-office-default-rtdb.firebaseio.com',
+  projectId: 'bbore-office',
+  storageBucket: 'bbore-office.firebasestorage.app',
+  messagingSenderId: '230117918413',
+  appId: '1:230117918413:web:cac0f33b322637f49c0b84'
+};
 const FIREBASE_PATH = 'bbori-office';
 const STORAGE_KEY = 'bbori-office-v1';
 
@@ -93,8 +101,11 @@ const Store = {
     if (this.remoteOn) {
       clearTimeout(this.saveTimer);
       this.saveTimer = setTimeout(() => {
+        this.saveTimer = null;
         try {
-          this.remoteRef.set(this.state);
+          this.remoteRef
+            .set(JSON.parse(JSON.stringify(this.state)))
+            .catch(e => console.warn('[뽈이 비서실] 원격 저장 실패', e));
         } catch (e) {
           console.warn('[뽈이 비서실] 원격 저장 실패', e);
         }
@@ -109,21 +120,41 @@ const Store = {
       await loadScript('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
       await loadScript('https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js');
       /* global firebase */
-      firebase.initializeApp(cfg);
-      const ref = firebase.database().ref(FIREBASE_PATH);
-      ref.on('value', snap => {
-        const value = snap.val();
-        if (value && Array.isArray(value.tasks)) {
-          Store.state = value;
-          renderAll();
-        }
-      });
+      if (!firebase.apps.length) firebase.initializeApp(cfg);
+      const db = firebase.database();
+      const ref = db.ref(FIREBASE_PATH);
       this.remoteRef = ref;
       this.remoteOn = true;
+
+      /* 처음 열 때 원격이 비어 있으면 이 기기의 내용을 그대로 올려 둡니다. */
+      const first = await ref.once('value');
+      if (!first.exists()) {
+        await ref.set(JSON.parse(JSON.stringify(this.state)));
+      }
+
+      ref.on('value', snap => {
+        const value = snap.val();
+        if (!value || !Array.isArray(value.tasks)) return;
+        /* 이 기기에서 아직 못 올린 변경이 있으면 원격 값으로 덮지 않습니다. */
+        if (this.saveTimer) return;
+        this.state = Object.assign({}, JSON.parse(JSON.stringify(SEED)), value);
+        this.state.tasks = Array.isArray(this.state.tasks) ? this.state.tasks : [];
+        this.state.minutes = Array.isArray(this.state.minutes) ? this.state.minutes : [];
+        this.state.notes = Array.isArray(this.state.notes) ? this.state.notes : [];
+        renderAll();
+      });
+
       const el = document.getElementById('saveState');
-      if (el) el.textContent = '실시간으로 함께 저장 중';
+      db.ref('.info/connected').on('value', s => {
+        if (!el) return;
+        el.textContent = s.val() === true
+          ? '실시간으로 함께 저장 중'
+          : '연결 기다리는 중 (이 브라우저에도 저장)';
+      });
     } catch (e) {
       console.warn('[뽈이 비서실] Firebase 연결 실패 — 브라우저 저장으로 계속합니다', e);
+      const el = document.getElementById('saveState');
+      if (el) el.textContent = '이 브라우저에만 저장 중';
     }
   }
 };
